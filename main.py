@@ -8,7 +8,8 @@ id_telegram = os.getenv('ID_TELEGRAM')
 token = os.getenv('TOKEN')
 bot = telepot.Bot(token)
 
-r = requests.get('https://www.jadwalsholat.org/adzan/monthly.php?id=310')
+link = 'https://www.jadwalsholat.org/adzan/monthly.php?id=310'
+r = requests.get(link)
 if r.status_code == 200:
     html = BeautifulSoup(r.content, "html.parser")
     kota = html.select_one('option[selected]').string
@@ -26,10 +27,7 @@ if r.status_code == 200:
     table.field_names = ['Waktu', 'Jam']
     table.align['Waktu'] = 'l'
     data = [
-        ('Imsyak', results[0][1]),
         ('Shubuh', results[0][2]),
-        ('Terbit', results[0][3]),
-        ('Dhuha', results[0][4]),
         ('Dzuhur', results[0][5]),
         ('Ashr', results[0][6]),
         ('Maghrib', results[0][7]),
